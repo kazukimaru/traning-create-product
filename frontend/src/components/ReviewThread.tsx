@@ -1,9 +1,9 @@
-"use client";
 import { useState } from "react";
 import ReviewForm from "./ReviewForm";
 import { FaRegCommentDots, FaStar, FaUserCircle } from "react-icons/fa";
+import type { Review } from "../types";
 
-export default function ReviewThread({ review, restaurantId }: { review: any, restaurantId: number }) {
+export default function ReviewThread({ review, restaurantId, onReviewAdded }: { review: Review, restaurantId: number, onReviewAdded: () => void }) {
   const [isReplying, setIsReplying] = useState(false);
 
   const formatDate = (dateString: string) => {
@@ -21,11 +21,16 @@ export default function ReviewThread({ review, restaurantId }: { review: any, re
         <div className="flex-1">
           <div className="flex justify-between items-start">
             <div>
-              <div className="font-bold text-primary flex items-center gap-2">
+              <div className="font-bold text-primary flex items-center flex-wrap gap-2">
                 {review.userName}
                 <span className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-normal">
                   {review.company}
                 </span>
+                {review.projectName && (
+                  <span className="text-xs bg-primary/10 text-primary/80 px-2 py-0.5 rounded-full font-normal border border-primary/10">
+                    📂 {review.projectName}
+                  </span>
+                )}
               </div>
               <div className="text-xs text-primary/50 mt-0.5">{formatDate(review.reviewTime)}</div>
             </div>
@@ -57,6 +62,7 @@ export default function ReviewThread({ review, restaurantId }: { review: any, re
                 restaurantId={restaurantId} 
                 parentId={review.id} 
                 onCancel={() => setIsReplying(false)} 
+                onSuccess={onReviewAdded}
               />
             </div>
           )}
@@ -64,20 +70,25 @@ export default function ReviewThread({ review, restaurantId }: { review: any, re
           {/* Replies */}
           {review.replies && review.replies.length > 0 && (
             <div className="mt-6 space-y-4">
-              {review.replies.map((reply: any) => (
+              {review.replies.map((reply: Review) => (
                 <div key={reply.id} className="flex gap-4">
                   <div className="flex-shrink-0 pt-1">
                     <FaUserCircle size={32} className="text-accent/30" />
                   </div>
                   <div className="flex-1 bg-background/50 rounded-2xl p-4 border border-accent/5">
                     <div className="flex justify-between items-start mb-2">
-                      <div className="font-bold text-primary text-sm flex items-center gap-2">
+                      <div className="font-bold text-primary text-sm flex flex-wrap items-center gap-2">
                         {reply.userName}
                         <span className="text-xs bg-accent/10 text-accent px-2 py-0.5 rounded-full font-normal">
                           {reply.company}
                         </span>
+                        {reply.projectName && (
+                          <span className="text-xs bg-primary/10 text-primary/80 px-2 py-0.5 rounded-full font-normal border border-primary/10">
+                            📂 {reply.projectName}
+                          </span>
+                        )}
                       </div>
-                      <div className="text-xs text-primary/40">{formatDate(reply.reviewTime)}</div>
+                      <div className="text-xs text-primary/40 shrink-0">{formatDate(reply.reviewTime)}</div>
                     </div>
                     <p className="text-sm text-primary/80">{reply.reviewBody}</p>
                   </div>

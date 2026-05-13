@@ -1,12 +1,10 @@
-"use client";
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { getUserCompany, postReview } from "@/lib/api";
+import { getUserCompany, postReview } from "../lib/api";
 
-export default function ReviewForm({ restaurantId, parentId = null, onCancel }: { restaurantId: number, parentId?: number | null, onCancel?: () => void }) {
-  const router = useRouter();
+export default function ReviewForm({ restaurantId, parentId = null, onCancel, onSuccess }: { restaurantId: number, parentId?: number | null, onCancel?: () => void, onSuccess: () => void }) {
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
+  const [projectName, setProjectName] = useState("");
   const [showCompanyInput, setShowCompanyInput] = useState(false);
   const [content, setContent] = useState("");
   const [rate, setRate] = useState(5);
@@ -49,6 +47,7 @@ export default function ReviewForm({ restaurantId, parentId = null, onCancel }: 
         restaurantId,
         email,
         company: showCompanyInput ? company : undefined,
+        projectName: projectName.trim() ? projectName : undefined,
         parentId,
         content,
         rate: parentId ? undefined : rate,
@@ -56,8 +55,8 @@ export default function ReviewForm({ restaurantId, parentId = null, onCancel }: 
       });
       
       setContent("");
+      onSuccess();
       if (onCancel) onCancel();
-      router.refresh();
     } catch (err: any) {
       setError(err.message || "Failed to post");
     } finally {
@@ -71,6 +70,17 @@ export default function ReviewForm({ restaurantId, parentId = null, onCancel }: 
       
       {error && <div className="text-red-500 text-sm mb-4">{error}</div>}
       
+      <div className="mb-4">
+        <label className="block text-sm text-primary/70 mb-1">Project Name (Optional)</label>
+        <input 
+          type="text" 
+          value={projectName}
+          onChange={e => setProjectName(e.target.value)}
+          className="w-full border border-accent/30 rounded-xl px-4 py-2 focus:outline-none focus:border-accent"
+          placeholder="e.g. Project Alpha Kickoff"
+        />
+      </div>
+
       {showCompanyInput && (
         <div className="mb-4">
           <label className="block text-sm text-primary/70 mb-1">Your Department/Company (First time only)</label>
