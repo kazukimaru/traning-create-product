@@ -31,6 +31,17 @@ export default function RestaurantDetail() {
         <FaArrowLeft size={16} /> Back to list
       </Link>
       
+      {restaurant.imageUrl && (
+        <div className="w-full h-64 md:h-80 rounded-3xl overflow-hidden mb-8 border border-accent/20 shadow-brown relative">
+          <img 
+            src={restaurant.imageUrl} 
+            alt={restaurant.name} 
+            className="w-full h-full object-cover" 
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/60 to-transparent"></div>
+        </div>
+      )}
+
       <div className="bg-white rounded-3xl p-8 border border-accent/20 shadow-brown mb-8 relative overflow-hidden">
         {/* Decorative background element */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-accent/5 rounded-full -translate-y-1/2 translate-x-1/3 pointer-events-none" />

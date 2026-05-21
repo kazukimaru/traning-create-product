@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaUtensils } from "react-icons/fa";
+import { FaUtensils, FaUser } from "react-icons/fa";
 
 export default function Header() {
   const [email, setEmail] = useState("");
@@ -24,6 +24,10 @@ export default function Header() {
           Simplex Banquet
         </Link>
         <div className="flex items-center gap-4">
+          <Link to="/mypage" className="flex items-center gap-2 text-primary/70 hover:text-accent font-medium text-sm transition-colors mr-2">
+            <FaUser />
+            マイページ
+          </Link>
           <span className="text-sm text-primary/70">Mock SSO:</span>
           <input 
             type="email" 

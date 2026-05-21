@@ -10,6 +10,7 @@ export interface Restaurant {
   isAycd: string; // "有" | "無" | "不明"
   maxPastPeople: number; // 過去の最大利用人数
   budget: number; // 予算
+  imageUrl?: string; // レストランの写真
   scenes: string[]; // "社外新規顧客との会食" | "社外既存顧客との会食" | "社内"
   department: string; // "XCI" | "SXI" | "SHI"
   rateAverage: number;
@@ -36,9 +37,11 @@ export interface Review {
   company: string;
   projectName?: string;
   reviewBody: string;
+  imageUrl?: string; // レビューの添付写真
   rate: number;
   numberOfPeople: number;
   reviewTime: string;
+  reactions?: { [emoji: string]: number }; // リアクションスタンプ (例: { "👍": 2, "❤️": 1 })
   parentId: number | null;
   replies: Review[];
 }
