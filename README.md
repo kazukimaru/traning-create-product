@@ -1,52 +1,58 @@
 import { motion } from "motion/react";
-import { Button } from "@/components/ui/button";
-import { Building2 } from "lucide-react";
+import { FaMicrosoft, FaUtensils } from "react-icons/fa";
 
 export default function LoginPage() {
+  const handleLogin = () => {
+    // ここだけ差し替え
+    // void auth.signinRedirect();
+    console.log("login");
+  };
+
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0f0d0b] text-white">
       {/* =========================================
           Background
       ========================================= */}
 
-      <div className="absolute inset-0">
-        {/* ベースグラデーション */}
+      <div className="absolute inset-0 overflow-hidden">
+        {/* ベース背景 */}
+        <div className="absolute inset-0 bg-[#0f0d0b]" />
+
+        {/* 上部グラデーション */}
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#2a2118,transparent_60%)]" />
 
-        {/* 光1 */}
+        {/* 光① */}
         <motion.div
           animate={{
-            x: [0, 80, -40, 0],
-            y: [0, -40, 40, 0],
+            x: [0, 100, -50, 0],
+            y: [0, -50, 50, 0],
             scale: [1, 1.1, 0.95, 1],
           }}
           transition={{
-            duration: 18,
+            duration: 20,
             repeat: Infinity,
             ease: "easeInOut",
           }}
           className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-amber-300/10 blur-[140px]"
         />
 
-        {/* 光2 */}
+        {/* 光② */}
         <motion.div
           animate={{
-            x: [0, -70, 50, 0],
-            y: [0, 60, -30, 0],
+            x: [0, -80, 60, 0],
+            y: [0, 80, -40, 0],
             scale: [1, 0.9, 1.1, 1],
           }}
           transition={{
-            duration: 22,
+            duration: 25,
             repeat: Infinity,
             ease: "easeInOut",
           }}
-          className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-orange-200/10 blur-[160px]"
+          className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-orange-300/10 blur-[160px]"
         />
 
-        {/* ノイズ感 */}
-        <div className="absolute inset-0 opacity-[0.03]">
-          <div className="h-full w-full bg-[url('https://grainy-gradients.vercel.app/noise.svg')]" />
-        </div>
+        {/* 中央の光 */}
+        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-200/5 blur-[120px]" />
       </div>
 
       {/* =========================================
@@ -57,7 +63,7 @@ export default function LoginPage() {
         initial={{
           opacity: 0,
           y: 30,
-          scale: 0.96,
+          scale: 0.95,
         }}
         animate={{
           opacity: 1,
@@ -71,23 +77,20 @@ export default function LoginPage() {
       >
         <motion.div
           whileHover={{
-            rotateX: 4,
-            rotateY: -4,
+            y: -4,
+            boxShadow: "0 35px 90px rgba(0,0,0,0.65)",
           }}
           transition={{
             duration: 0.2,
-          }}
-          style={{
-            transformStyle: "preserve-3d",
           }}
           className="
             rounded-3xl
             border
             border-white/10
             bg-white/[0.04]
-            backdrop-blur-2xl
-            shadow-[0_30px_80px_rgba(0,0,0,0.55)]
             p-8
+            backdrop-blur-2xl
+            shadow-[0_25px_80px_rgba(0,0,0,0.55)]
           "
         >
           {/* =========================================
@@ -104,9 +107,21 @@ export default function LoginPage() {
                 repeat: Infinity,
                 ease: "easeInOut",
               }}
-              className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl border border-amber-200/20 bg-amber-100/5"
+              className="
+                mx-auto
+                mb-5
+                flex
+                h-16
+                w-16
+                items-center
+                justify-center
+                rounded-2xl
+                border
+                border-amber-200/20
+                bg-amber-100/5
+              "
             >
-              <Building2 className="h-8 w-8 text-amber-200" />
+              <FaUtensils className="text-2xl text-amber-200" />
             </motion.div>
 
             <h1 className="mb-2 text-3xl font-semibold tracking-wide">
@@ -119,52 +134,42 @@ export default function LoginPage() {
           </div>
 
           {/* =========================================
-              Login Area
+              Login
           ========================================= */}
 
           <div className="space-y-5">
             <div className="text-center">
-              <p className="text-xs uppercase tracking-[0.25em] text-amber-300">
+              <p className="text-xs uppercase tracking-[0.3em] text-amber-300">
                 Sign In
               </p>
             </div>
 
-            <motion.div
+            <motion.button
               whileHover={{
                 scale: 1.02,
+                boxShadow: "0 0 30px rgba(255,255,255,0.15)",
               }}
               whileTap={{
                 scale: 0.98,
               }}
+              onClick={handleLogin}
+              className="
+                flex
+                h-12
+                w-full
+                items-center
+                justify-center
+                gap-3
+                rounded-xl
+                bg-white
+                font-medium
+                text-black
+                transition-all
+              "
             >
-              <Button
-                size="lg"
-                className="
-                  h-12
-                  w-full
-                  bg-white
-                  text-black
-                  hover:bg-white
-                  hover:shadow-[0_0_35px_rgba(255,255,255,0.3)]
-                  transition-all
-                "
-                onClick={() => {
-                  // ↓ここだけ差し替え
-                  // void auth.signinRedirect();
-
-                  console.log("login");
-                }}
-              >
-                <div className="mr-3 grid grid-cols-2 gap-[2px]">
-                  <div className="h-2 w-2 bg-[#F25022]" />
-                  <div className="h-2 w-2 bg-[#7FBA00]" />
-                  <div className="h-2 w-2 bg-[#00A4EF]" />
-                  <div className="h-2 w-2 bg-[#FFB900]" />
-                </div>
-
-                Microsoft Entra IDでサインイン
-              </Button>
-            </motion.div>
+              <FaMicrosoft className="text-lg" />
+              <span>Microsoft Entra IDでサインイン</span>
+            </motion.button>
           </div>
 
           {/* =========================================
