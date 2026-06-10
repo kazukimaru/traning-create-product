@@ -1,88 +1,50 @@
-import { motion } from "motion/react";
 import { FaMicrosoft, FaUtensils } from "react-icons/fa";
+import restaurantBg from "../assets/restaurant.jpg";
 
 export default function LoginPage() {
   const handleLogin = () => {
-    // ここだけ差し替え
+    // Microsoft認証に差し替え
     // void auth.signinRedirect();
+
     console.log("login");
   };
 
   return (
     <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[#0f0d0b] text-white">
-      {/* =========================================
+      {/* ==============================
           Background
-      ========================================= */}
+      ============================== */}
 
-      <div className="absolute inset-0 overflow-hidden">
-        {/* ベース背景 */}
-        <div className="absolute inset-0 bg-[#0f0d0b]" />
+      <div className="absolute inset-0">
+        {/* 背景画像 */}
+        <img
+          src={restaurantBg}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover opacity-15"
+        />
 
-        {/* 上部グラデーション */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,#2a2118,transparent_60%)]" />
+        {/* 暗幕 */}
+        <div className="absolute inset-0 bg-black/75" />
+
+        {/* ゴールドグラデーション */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/30 via-transparent to-orange-900/20" />
 
         {/* 光① */}
-        <motion.div
-          animate={{
-            x: [0, 100, -50, 0],
-            y: [0, -50, 50, 0],
-            scale: [1, 1.1, 0.95, 1],
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-amber-300/10 blur-[140px]"
-        />
+        <div className="absolute -left-40 top-0 h-[500px] w-[500px] rounded-full bg-amber-300/10 blur-[140px]" />
 
         {/* 光② */}
-        <motion.div
-          animate={{
-            x: [0, -80, 60, 0],
-            y: [0, 80, -40, 0],
-            scale: [1, 0.9, 1.1, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-orange-300/10 blur-[160px]"
-        />
+        <div className="absolute bottom-0 right-0 h-[600px] w-[600px] rounded-full bg-orange-300/10 blur-[160px]" />
 
-        {/* 中央の光 */}
-        <div className="absolute left-1/2 top-1/2 h-[400px] w-[400px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-200/5 blur-[120px]" />
+        {/* カード裏の光 */}
+        <div className="absolute left-1/2 top-1/2 h-[450px] w-[450px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-amber-200/5 blur-[120px]" />
       </div>
 
-      {/* =========================================
+      {/* ==============================
           Login Card
-      ========================================= */}
+      ============================== */}
 
-      <motion.div
-        initial={{
-          opacity: 0,
-          y: 30,
-          scale: 0.95,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-          scale: 1,
-        }}
-        transition={{
-          duration: 0.8,
-        }}
-        className="relative z-10 w-full max-w-md px-6"
-      >
-        <motion.div
-          whileHover={{
-            y: -4,
-            boxShadow: "0 35px 90px rgba(0,0,0,0.65)",
-          }}
-          transition={{
-            duration: 0.2,
-          }}
+      <div className="relative z-10 w-full max-w-md px-6">
+        <div
           className="
             rounded-3xl
             border
@@ -91,22 +53,18 @@ export default function LoginPage() {
             p-8
             backdrop-blur-2xl
             shadow-[0_25px_80px_rgba(0,0,0,0.55)]
+            transition-all
+            duration-300
+            hover:-translate-y-1
+            hover:shadow-[0_35px_90px_rgba(0,0,0,0.7)]
           "
         >
-          {/* =========================================
+          {/* ==============================
               Logo
-          ========================================= */}
+          ============================== */}
 
           <div className="mb-10 text-center">
-            <motion.div
-              animate={{
-                y: [0, -6, 0],
-              }}
-              transition={{
-                duration: 4,
-                repeat: Infinity,
-                ease: "easeInOut",
-              }}
+            <div
               className="
                 mx-auto
                 mb-5
@@ -122,7 +80,7 @@ export default function LoginPage() {
               "
             >
               <FaUtensils className="text-2xl text-amber-200" />
-            </motion.div>
+            </div>
 
             <h1 className="mb-2 text-3xl font-semibold tracking-wide">
               Simpled Banquet
@@ -133,9 +91,9 @@ export default function LoginPage() {
             </p>
           </div>
 
-          {/* =========================================
+          {/* ==============================
               Login
-          ========================================= */}
+          ============================== */}
 
           <div className="space-y-5">
             <div className="text-center">
@@ -144,14 +102,7 @@ export default function LoginPage() {
               </p>
             </div>
 
-            <motion.button
-              whileHover={{
-                scale: 1.02,
-                boxShadow: "0 0 30px rgba(255,255,255,0.15)",
-              }}
-              whileTap={{
-                scale: 0.98,
-              }}
+            <button
               onClick={handleLogin}
               className="
                 flex
@@ -165,24 +116,31 @@ export default function LoginPage() {
                 font-medium
                 text-black
                 transition-all
+                duration-300
+                hover:scale-[1.02]
+                hover:shadow-[0_0_30px_rgba(255,255,255,0.2)]
+                active:scale-[0.98]
               "
             >
               <FaMicrosoft className="text-lg" />
-              <span>Microsoft Entra IDでサインイン</span>
-            </motion.button>
+
+              <span>
+                Microsoft Entra IDでサインイン
+              </span>
+            </button>
           </div>
 
-          {/* =========================================
+          {/* ==============================
               Footer
-          ========================================= */}
+          ============================== */}
 
           <div className="mt-10 border-t border-white/5 pt-5 text-center">
             <p className="text-xs text-zinc-500">
               © Simplex Holdings Inc.
             </p>
           </div>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </div>
   );
 }
